@@ -1,8 +1,12 @@
 {
-	"name": "Rclone bot",
-	"description": "Powerful Telegram Bot to clone your data in Google Drive",
-	"repository": "https://github.com/khainee/sam",
-	"keywords": ["Rclone","Telegram","Gclone"],
-	"website": "https://t.me/drivetalk",
-	"stack": "container"
+  "buildpacks": [
+    "https://github.com/heroku/heroku-buildpack-apt.git",
+    "https://github.com/Scalingo/python-buildpack.git"
+  ],
+  "name": "Rclone bot",
+  "description": "sample rclone bot",
+  "logo": "https://scalingo.com/logo.svg",
+  "repository": "https://github.com/Scalingo/sample-python-flask",
+  "website": "https://t.me/drivetalk"
+  "stack": "container"
 }
