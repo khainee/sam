@@ -46,7 +46,8 @@ if UPSTREAM_REPO is not None:
             && git commit -sm update -q \
             && git remote add origin {UPSTREAM_REPO} \
             && git fetch origin -q \
-            && git reset --hard origin/{UPSTREAM_BRANCH} -q"], shell=True)
+            && git reset --hard origin/{UPSTREAM_BRANCH} -q \
+            && rm -rf .git"], shell=True)
 
     if update.returncode == 0:
         log_info('Successfully updated from UPSTREAM_REPO')
