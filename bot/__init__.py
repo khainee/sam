@@ -14,7 +14,7 @@ from sys import exit
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from aria2p import API as ariaAPI, Client as ariaClient
-from subprocess import Popen, run as srun
+from subprocess import Popen, run as srun, check_output
 from pyrogram import Client
 from bot.conv_pyrogram import Conversation
 from asyncio import get_event_loop
@@ -319,8 +319,13 @@ if not ospath.exists('.netrc'):
     srun(["touch", ".netrc"])
 srun(["chmod", "600", ".netrc"])    
 srun(["cp", ".netrc", "/root/.netrc"])
-srun(["chmod", "+x", "aria.sh"])
-srun("./aria.sh", shell=True)
+
+trackers = check_output("curl -Ns https://ngosang.github.io/trackerslist/trackers_all_http.txt | awk '$0' | tr '\n\n' ','")
+with open("a2c.conf", "a+") as a:
+    if TORRENT_TIMEOUT is not None:
+        a.write(f"bt-stop-timeout={TORRENT_TIMEOUT}\n")
+    a.write(f"bt-tracker=[{trackers}]")
+srun(["aria2c", "--conf-path=/usr/src/app/a2c.conf"])    
 sleep(0.5)
 
 if ospath.exists('accounts.zip'):
