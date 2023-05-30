@@ -1,0 +1,27 @@
+name: Manually Deploy To Heroku
+
+on: workflow_dispatch
+
+env:
+  IMAGE_NAME: worker
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.5.0
+
+#      - name: Build the image
+#        run: #docker build . -t "${IMAGE_NAME}"
+
+      - name: Login into Heroku Container registry
+        run: heroku container:login && ls -a #cat /home/runner/.docker/config.json.
+
+      - name: scaling
+        run: heroku ps:scale worker=0 -a "${HEROKU_APP_NAME}" && heroku ps:scale worker=1 -a "${HEROKU_APP_NAME}"
+        
+#      - name: Release image to Heroku
+#        run: #heroku container:release "${IMAGE_NAME}"
