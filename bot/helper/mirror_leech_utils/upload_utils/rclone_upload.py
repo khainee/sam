@@ -46,9 +46,9 @@ class RcloneMirror:
                     for remote in remotes_multi:
                         await self.check_isGdrive(remote, config_file)
                         if mime_type == 'Folder':
-                            cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:/{foldername}", '-P']
+                            cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:/{foldername}", '-P']
                         else:
-                            cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:", '-P']
+                            cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:", '-P']
                         await setRcloneFlags(cmd, "upload")
                         await self.upload(cmd, config_file, mime_type, remote)
                     await clean_download(self.__path)
@@ -58,9 +58,9 @@ class RcloneMirror:
                 await self.check_isGdrive(remote, config_file)
 
                 if mime_type == 'Folder':
-                    cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:{base}{foldername}", '-P']
+                    cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:{base}{foldername}", '-P']
                 else:
-                    cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:{base}", '-P']
+                    cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{remote}:{base}", '-P']
                 await setRcloneFlags(cmd, "upload")
                 await self.upload(cmd, config_file, mime_type, remote, base)
         else:
@@ -68,9 +68,9 @@ class RcloneMirror:
                 await self.check_isGdrive(DEFAULT_GLOBAL_REMOTE, config_file)                
 
                 if mime_type == 'Folder':
-                    cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{DEFAULT_GLOBAL_REMOTE}:/{foldername}", '-P']
+                    cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{DEFAULT_GLOBAL_REMOTE}:/{foldername}", '-P']
                 else:
-                    cmd = ['rclone', 'copy', f"--config={config_file}", str(self.__path), f"{DEFAULT_GLOBAL_REMOTE}:", '-P']
+                    cmd = ['sanji', 'copy', f"--config={config_file}", str(self.__path), f"{DEFAULT_GLOBAL_REMOTE}:", '-P']
                 await setRcloneFlags(cmd, "upload")
                 await self.upload(cmd, config_file, mime_type, DEFAULT_GLOBAL_REMOTE)
             else:
