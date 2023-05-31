@@ -140,7 +140,7 @@ async def create_next_buttons(next_offset, prev_offset, _next_offset, data_back_
 async def is_valid_path(remote, path, message):
     user_id= message.reply_to_message.from_user.id
     rc_path = await get_rclone_path(user_id, message)
-    cmd = ["rclone", "lsjson", f'--config={rc_path}', f"{remote}:{path}"]
+    cmd = ["sanji", "lsjson", f'--config={rc_path}', f"{remote}:{path}"]
     process = await create_subprocess_exec(*cmd)
     return_code = await process.wait()
     if return_code != 0:
@@ -154,7 +154,7 @@ async def list_folder(message, rclone_remote, base_dir, menu_type, listener_dict
     path = await get_rclone_path(user_id, message)
     dir_callback = "remote_dir"
     back_callback= "back"
-    cmd = ["rclone", "lsjson", f'--config={path}', f"{rclone_remote}:{base_dir}"]
+    cmd = ["sanji", "lsjson", f'--config={path}', f"{rclone_remote}:{base_dir}"]
     
     if menu_type == Menus.LEECH:
         next_type= "next_leech" 
